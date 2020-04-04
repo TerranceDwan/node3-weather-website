@@ -5,6 +5,7 @@ const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 
 const app = express()
+const port = process.env.PORT || 3000
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, '../public')
@@ -22,20 +23,20 @@ app.use(express.static(publicDirectoryPath))
 app.get('', (req, res) => {
   res.render('index', {
     title: 'Weather App',
-    name: 'Terrance Lewis'
+    name: 'Terrance Lewis',
   })
 })
 app.get('/about', (req, res) => {
   res.render('about', {
     title: 'About',
-    name: 'Terrance Lewis'
+    name: 'Terrance Lewis',
   })
 })
 app.get('/help', (req, res) => {
   res.render('help', {
     title: 'Help',
     name: 'Terrance Lewis',
-    info: "Any questions you may have, just shove 'em"
+    info: "Any questions you may have, just shove 'em",
   })
 })
 
@@ -56,7 +57,7 @@ app.get('/weather', (req, res) => {
         return res.send({
           address: req.query.address,
           location,
-          forecast: forecastData
+          forecast: forecastData,
         })
       })
     }
@@ -66,17 +67,17 @@ app.get('/weather', (req, res) => {
 app.get('/help/*', (req, res) => {
   res.render('404', {
     title: 'Woops...',
-    message: 'This help page does not exist'
+    message: 'This help page does not exist',
   })
 })
 
 app.get('*', (req, res) => {
   res.render('404', {
     title: 'Woops...',
-    message: 'No page exists at this extension'
+    message: 'No page exists at this extension',
   })
 })
 
-app.listen(3000, () => {
-  console.log('Server is up on port 3000.')
+app.listen(port, () => {
+  console.log('Server is up on port ' + port + '.')
 })
