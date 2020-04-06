@@ -6,7 +6,6 @@ const forecast = (x, y, callback) => {
     x +
     ',' +
     y
-
   request({ url, json: true }, (error, { body }) => {
     if (error) {
       callback('Unable to connect to weather service', undefined)
@@ -21,7 +20,9 @@ const forecast = (x, y, callback) => {
           currently.temperature +
           ' degrees outside.  There is a ' +
           currently.precipProbability +
-          '% chance of rain.'
+          '% chance of rain.  There is also a wind speed of about ' +
+          body.currently.windSpeed +
+          ' mph.'
       )
     }
   })
