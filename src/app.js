@@ -40,7 +40,7 @@ app.get('/help', (req, res) => {
   })
 })
 
-app.get('/weather', (req, res) => {
+app.get('/weather', async (req, res) => {
   if (!req.query.address) {
     return res.send('Error: Address Required')
   }

@@ -1,4 +1,5 @@
 const request = require('request')
+const rp = require('request-promise')
 
 const forecast = (x, y, callback) => {
   const url =
@@ -6,7 +7,7 @@ const forecast = (x, y, callback) => {
     x +
     ',' +
     y
-  request({ url, json: true }, (error, { body }) => {
+  return rp({ url, json: true }, (error, { body }) => {
     if (error) {
       callback('Unable to connect to weather service', undefined)
     } else if (body.error) {
@@ -16,11 +17,11 @@ const forecast = (x, y, callback) => {
       callback(
         undefined,
         body.daily.data[0].summary +
-          ' It is currently ' +
+          ' It is currently <strong class="emphasize">' +
           currently.temperature +
-          ' degrees outside.  There is a ' +
+          ' degrees</strong> outside.  There is a <strong class="emphasize">' +
           currently.precipProbability +
-          '% chance of rain.  There is also a wind speed of about ' +
+          '% chance of rain</strong>.  There is also a wind speed of about ' +
           body.currently.windSpeed +
           ' mph.'
       )
